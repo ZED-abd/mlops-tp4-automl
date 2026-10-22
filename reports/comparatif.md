@@ -8,7 +8,7 @@ Sources des couts cloud : Google (docs.cloud.google.com/vertex-ai/pricing), AWS
 |-----------------------|-------------|--------------|---------------|-------------------------|---------------|------------------------|
 | Logistique (ref.) | 0.7407 | ~2 min (1 script de 10 lignes) | 0.36 s | 0 (poste local) | Maximale (coefficients) | Total |
 | Manuel (TP2) | 0.8669 | ~1 h au TP2 (grille manuelle) | 5.2 s | 0 (poste local) | Moyenne/Bonne (feature_importances_) | Total |
-| FLAML 60 s | 0.8614 | ~20 min (script + lecture du journal) | 60 s (82 essais) | ~0.02 EUR d'electricite | Moyenne/Basse (importances du gagnant seulement) | Total |
+| FLAML 60 s | 0.8582 | ~20 min (script + lecture du journal) | 60 s (145 essais) | ~0.02 EUR d'electricite | Moyenne/Basse (importances du gagnant seulement) | Total |
 | Vertex AI AutoML | non mesure | ~30-60 min (console, navigateur) | n/d (1-3 h conseilles pour <100k lignes) | 21.25 USD/node-h d'entrainement, soit ~21-64 USD pour 1-3 h (Google, 22/10/2026); endpoint facture des qu'il est deploye | Bonne (valeurs de Shapley globales et locales) | Faible / Verrouillage (Vendor Lock-in) : export Docker du modele tabulaire possible mais sans l'explicabilite Vertex, CPU x86 AVX uniquement |
 | SageMaker Autopilot | non mesure | ~30-60 min (studio/Canvas) | n/d | session Workspace 1.9 USD/h + heures d'instances d'entrainement (~2.3-9.2 USD pour <100 Mo; build standard ~7.30 USD) (AWS, 22/10/2026); tier gratuit 2 mois | Bonne (rapport SHAP via Clarify, notebooks generes, rapport de performance) | Faible / Verrouillage (Vendor Lock-in) : artefacts S3 et notebooks recuperables, redeployer ailleurs demande du travail |
 | Azure Automated ML | non mesure | ~30-60 min (studio) | n/d | pas de surcharge AutoML : facturation VM sous-jacente (ex. DS14 v2 : 1.196 USD/h) (Microsoft, 22/10/2026); facturation a la seconde | Bonne (Responsible AI dashboards : SHAP, analyse d'erreurs) | Faible / Verrouillage (Vendor Lock-in) : modele enregistre au format MLflow telechargeable, meilleur portage que GCP/AWS |
@@ -29,7 +29,8 @@ Sources des couts cloud : Google (docs.cloud.google.com/vertex-ai/pricing), AWS
 
 ## Note de version
 
-Les F1 test FLAML du tableau proviennent de la 1re campagne de runs (lue dans MLflow).
-Une 2e campagne a ete relancee apres coup (journaux de ce dossier) : gagnants identiques
-par budget (lgbm, lgbm, xgboost, xgboost) et F1 val finaux 0.8109 / 0.8262 / 0.8277 /
-0.8317 ; conclusion inchangee (rendement plafonne des 60 s, reglage manuel devant).
+Une seule campagne de runs est conservee (celle des journaux, relancee le 22/10 a la
+main) : F1 test FLAML 0.8340 (10 s) / 0.8409 (30 s) / 0.8582 (60 s) / 0.8561 (120 s),
+F1 validation 0.8109 / 0.8262 / 0.8277 / 0.8317 ; gagnants lgbm, lgbm, xgboost, xgboost.
+Les essais de cette campagne sont ceux du tableau du haut. Conclusion inchangee :
+rendement plafonne des 60 s, reglage manuel toujours devant.
