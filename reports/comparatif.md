@@ -26,3 +26,10 @@ Sources des couts cloud : Google (docs.cloud.google.com/vertex-ai/pricing), AWS
 - FLAML : a recommander comme brique locale repetitive du pipeline : le meilleur compromis qualite/effort (~20 min humaines, 60 s machine) quand l'equipe veut garder le code et le journal sous controle.
 - Plateformes managées : a recommander pour une equipe sans competence ML ni ops, qui veut une infra geree (scalabilite, endpoints, monitoring) et accepte le cout des heures d'entrainement et le verrouillage fournisseur.
 - Pour ce TP : FLAML offre ~95-99 % de la qualité du reglage manuel pour ~0.02 EUR ; les plateformes cloud ne se justifient que si l'entreprise ne veut rien exploiter en local (ops, mise a l'echelle, conformite) et selon le volume budgete.
+
+## Note de version
+
+Les F1 test FLAML du tableau proviennent de la 1re campagne de runs (lue dans MLflow).
+Une 2e campagne a ete relancee apres coup (journaux de ce dossier) : gagnants identiques
+par budget (lgbm, lgbm, xgboost, xgboost) et F1 val finaux 0.8109 / 0.8262 / 0.8277 /
+0.8317 ; conclusion inchangee (rendement plafonne des 60 s, reglage manuel devant).
